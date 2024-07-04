@@ -38,7 +38,10 @@ public class Article extends AuditingFields { // 게시글
     @OrderBy("id") @OneToMany(mappedBy = "article", cascade = CascadeType.ALL) private final Set<ArticleComment> articleComments = new LinkedHashSet<>();
     // aritcle 에 연동되어 있는 comment는 중복을 허용하지 않고 다 여기에서 모아서 Collection으로 보겠다.
 
-/*     ArticleComment 에도 공통으로 들어가있는 내용이기에 AuditingFields 로 빼줌 상속으로 해결
+/*
+    생성자, 생성일시, 수정자, 수정일시는 반복적으로 엔티티 클래스에 들어가는 요소이고, 도메인과 직접적인 연관이 없는 요소이므로
+     추출이 가능하다. @MappedSuperClass 이용해서 상속 방식으로 추출
+ArticleComment 에도 공통으로 들어가있는 내용이기에 AuditingFields 로 빼줌 상속으로 해결
     @CreatedDate @Column(nullable = false) private LocalDateTime createdAt; // 생성일시
     @CreatedBy @Column(nullable = false, length = 100) private String createdBy; // 생성자
     @LastModifiedDate @Column(nullable = false, length = 100) private LocalDateTime modifiedAt; // 수정일시
