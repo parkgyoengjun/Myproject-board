@@ -10,8 +10,8 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
-@DisplayName("View 컨들롤러 - 게시글")
-@WebMvcTest(ArticleControllerTest.class)
+@DisplayName("View 컨트롤러 - 게시글")
+@WebMvcTest(ArticleController.class)
 class ArticleControllerTest {
 
     private final MockMvc mvc;
@@ -22,16 +22,16 @@ class ArticleControllerTest {
         this.mvc = mvc;
     }
 
-    @Disabled("구현 중")
+//    @Disabled("구현 중")
     @DisplayName("[view][GET] 게시글 리스트(게시판) 페이지 - 정상호출")
     @Test
     public void givenNothing_whenRequestingArticlesView_thenReturnsArticlesView() throws Exception {
         //Given
 
         // When & Then
-        mvc.perform(MockMvcRequestBuilders.get("/aircles"))
+        mvc.perform(MockMvcRequestBuilders.get("/articles"))
                 .andExpect(MockMvcResultMatchers.status().isOk())
-                .andExpect(MockMvcResultMatchers.content().contentType(MediaType.TEXT_HTML))
+                .andExpect(MockMvcResultMatchers.content().contentTypeCompatibleWith(MediaType.TEXT_HTML))
                 .andExpect(MockMvcResultMatchers.view().name("articles/index"))
                 .andExpect(MockMvcResultMatchers.model().attributeExists("articles"));
     }
@@ -43,7 +43,7 @@ class ArticleControllerTest {
         //Given
 
         // When & Then
-        mvc.perform(MockMvcRequestBuilders.get("/aircles/1"))
+        mvc.perform(MockMvcRequestBuilders.get("/articles/1"))
                 .andExpect(MockMvcResultMatchers.status().isOk())
                 .andExpect(MockMvcResultMatchers.content().contentType(MediaType.TEXT_HTML))
                 .andExpect(MockMvcResultMatchers.view().name("articles/detail"))
@@ -58,7 +58,7 @@ class ArticleControllerTest {
         //Given
 
         // When & Then
-        mvc.perform(MockMvcRequestBuilders.get("/aircles/search"))
+        mvc.perform(MockMvcRequestBuilders.get("/articles/search"))
                 .andExpect(MockMvcResultMatchers.status().isOk())
                 .andExpect(MockMvcResultMatchers.content().contentType(MediaType.TEXT_HTML))
                 .andExpect(MockMvcResultMatchers.model().attributeExists("article/search"));
@@ -71,7 +71,7 @@ class ArticleControllerTest {
         //Given
 
         // When & Then
-        mvc.perform(MockMvcRequestBuilders.get("/aircles/search-hashtag"))
+        mvc.perform(MockMvcRequestBuilders.get("/articles/search-hashtag"))
                 .andExpect(MockMvcResultMatchers.status().isOk())
                 .andExpect(MockMvcResultMatchers.content().contentType(MediaType.TEXT_HTML))
                 .andExpect(MockMvcResultMatchers.model().attributeExists("article/search-hashtag"));
